@@ -8,7 +8,7 @@ MAINFILE=java.class
 SOURCES=$(shell find $(SRCDIR) -name "*.java")
 OBJECTS=$(patsubst $(SRCDIR)/%.java,$(BINDIR)/%.class,$(SOURCES))
 
-JFLAGS=-d $(BINDIR) -s $(SRCDIR)
+JFLAGS=-d $(BINDIR) -sourcepath $(SRCDIR)
 
 all: $(OBJECTS)
 
