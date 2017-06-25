@@ -25,7 +25,7 @@ public class PageTable {
     }
   }
   
-  public PageTable generateShadow() {
+  public PageTable generateCopy() {
     PageTable tps = new PageTable(this);
     return tps;
   }
@@ -38,6 +38,10 @@ public class PageTable {
       return null;
     }
     return database.getPage(indexInDisk);
+  }
+  
+  public void copyPage(Page to, Page from) {
+    to.copyData(from);
   }
   
   public boolean newPage(Page p) {

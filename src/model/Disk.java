@@ -22,18 +22,11 @@ public class Disk {
     return pages.length;
   }
   
-  public int getFreePage() {
-    return tpl.getPage();
+  public Page getFreePage() {
+    return this.pages[tpl.getPage()];
   }
   
   public void addPage(Page p) {
     tpl.addPage(p);
-  }
-  
-  protected int getCopy(int index) {
-    int free = this.getFreePage();
-    Page copy = getPage(free);
-    copy.copyData(getPage(index));
-    return free;
   }
 }
