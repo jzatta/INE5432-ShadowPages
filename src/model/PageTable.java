@@ -1,20 +1,18 @@
 package model;
 
-public class TablePage {
+public class PageTable {
   private Disk base;
-  private int[] pages;
+  private int[] pagesIndex;
   
-  private TablePage(TablePage tpc) {
-    this.pages = new Page[tpc.pages.length];
-    for (int i = 0; i < tpc.pages.length; i++) {
-      this.pages[i] = tpc.pages[i];
+  private PageTable(PageTable tpc) {
+    this.pagesIndex = new int[tpc.pagesIndex.length];
+    for (int i = 0; i < tpc.pagesIndex.length; i++) {
+      this.pagesIndex[i] = tpc.pagesIndex[i];
     }
   }
   
-  public TablePage generateShadow(void) {
-    TablePage tps = new TablePage(this);
+  public PageTable generateShadow() {
+    PageTable tps = new PageTable(this);
     return tps;
   }
-  
-  
 }
