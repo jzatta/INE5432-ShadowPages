@@ -29,4 +29,12 @@ public class Disk {
   public void addPage(Page p) {
     tpl.addPage(p);
   }
+  
+  public String toString() {
+    String ret = "Disk Content:\n";
+    for (Page p: pages) {
+      ret += "DBId: " + p.dbIndex() + "\tTableId: " + p.getTableIndex() + "\tData: " + p.selectData(0) + "\n";
+    }
+    return ret;
+  }
 }
