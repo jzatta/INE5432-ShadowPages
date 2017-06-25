@@ -2,9 +2,29 @@ package model;
 
 public class Page {
   private int data[];
+  private int indexInDB;
   
-  public Page(int tuplePerPage) {
+  // Tuple per page isnt really necessary
+  protected Page(int tuplePerPage, int dbIndex) {
     data = new int[tuplePerPage];
+    indexInDB = dbIndex;
+  }
+  
+  // Add in first tuple, useful when have only one tuple per page
+  // Should be removed in future
+  @Deprecated
+  public void updateData(int t) {
+    data[0] = t;
+  }
+  
+  public void updateData(int t[]) {
+    if (t.length == data.length) {
+      // Maybe throw and exception
+      return;
+    }
+    for (int i = 0; i < data.length; i++) {
+      data[i] = t[i];
+    }
   }
   
   public void updateData(int index, int t) {
@@ -13,5 +33,13 @@ public class Page {
   
   public int selectData(int index) {
     return data[index];
+  }
+  
+  protected int dbIndex() {
+    return indexInDB;
+  }
+  
+  protected void copyData(Page input) {
+    this.updateData(input.data);
   }
 }

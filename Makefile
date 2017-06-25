@@ -3,7 +3,7 @@ SRCDIR=src
 BINDIR=bin
 LIBDIR=lib
 
-MAINFILE=java.class
+MAINFILE=Main
 
 SOURCES=$(shell find $(SRCDIR) -name "*.java")
 OBJECTS=$(patsubst $(SRCDIR)/%.java,$(BINDIR)/%.class,$(SOURCES))
@@ -13,7 +13,8 @@ JFLAGS=-d $(BINDIR) -sourcepath $(SRCDIR)
 all: $(OBJECTS)
 
 run: all
-	java $(BINDIR)/$(MAINFILE)
+	@cd $(BINDIR)
+	@java $(MAINFILE)
 
 $(BINDIR):
 	@mkdir $@
