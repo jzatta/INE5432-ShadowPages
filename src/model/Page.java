@@ -3,11 +3,13 @@ package model;
 public class Page {
   private int data[];
   private int indexInDB;
+  private int indexInTable;
   
   // Tuple per page isnt really necessary
   protected Page(int tuplePerPage, int dbIndex) {
     data = new int[tuplePerPage];
     indexInDB = dbIndex;
+    indexInTable = -1;
   }
   
   // Add in first tuple, useful when have only one tuple per page
@@ -35,11 +37,20 @@ public class Page {
     return data[index];
   }
   
+  protected void copyData(Page input) {
+    this.updateData(input.data);
+    setTableIndex(input.getTableIndex());
+  }
+  
   protected int dbIndex() {
     return indexInDB;
   }
   
-  protected void copyData(Page input) {
-    this.updateData(input.data);
+  protected int getTableIndex() {
+    return indexInTable;
+  }
+  
+  protected void setTableIndex(int i) {
+    indexInTable = i;
   }
 }

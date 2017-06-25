@@ -30,8 +30,8 @@ public class PageTable {
     return tps;
   }
   
-  public Page getPage(int index) {
-    int indexInDisk = pagesIndex[index];
+  public Page getPage(int id) {
+    int indexInDisk = pagesIndex[id];
     if (indexInDisk < 0) {
       // In case of not allocated page, maybe should throw an exception
       // Doenst have data to this index
@@ -44,6 +44,7 @@ public class PageTable {
     for (int i = 0; i < pagesIndex.length; i++) {
       if (pagesIndex[i] < 0) {
         pagesIndex[i] = p.dbIndex();
+        p.setTableIndex(i);
         return true;
       }
     }
@@ -51,8 +52,21 @@ public class PageTable {
     return false;
   }
   
-  // Not implemented yet
-  public boolean updatePage(int index, Page p) {
-    return false;
+  public boolean updatePage(Page p) {
+    int id = p.getTableIndex();
+    if (id < 0) {
+      return false;
+    }
+    pagesIndex[id] = p.dbIndex();
+    return true;
+  }
+  
+  public boolean deletePage(Page p) {
+    int id = p.getTableIndex();
+    if (id < 0) {
+      return false;
+    }
+    pagesIndex[id] = -1;
+    return true;
   }
 }
