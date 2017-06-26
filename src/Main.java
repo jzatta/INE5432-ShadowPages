@@ -4,6 +4,10 @@ import control.*;
 
 public class Main {
   public static void main(String args[]) {
+    gui(args);
+    console(args);
+  }
+  public static void console(String args[]) {
     TablesManager tm = new TablesManager();
     Transaction t = new Transaction();
     tm.start(t);
@@ -13,10 +17,26 @@ public class Main {
     tm.start(t);
     tm.update(t, 0, 10);
     print(tm);
-    tm.commit(t);
-//     tm.abort(t);
+//     tm.commit(t);
+    tm.abort(t);
     print(tm);
   }
+  
+  /**
+	 * Launch the application.
+	 */
+	public static void gui(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Mainpage window = new Mainpage();
+					window.frmShadowPages.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
   
   private static void print(TablesManager tm) {
     System.out.print("\033[H\033[2J");
