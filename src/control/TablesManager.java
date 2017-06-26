@@ -53,6 +53,7 @@ public class TablesManager {
       return false;
     }
     newPage = database.getFreePage();
+    newPage.updateData(data);
     oldPage = tpc.getPage(id);
     tpc.copyPage(newPage, oldPage);
     state = tpc.updatePage(newPage);

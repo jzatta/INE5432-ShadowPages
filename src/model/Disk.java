@@ -27,6 +27,7 @@ public class Disk {
   }
   
   public void addPage(Page p) {
+    p.setTableIndex(-1);
     tpl.addPage(p);
   }
   
