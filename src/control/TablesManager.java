@@ -2,6 +2,7 @@ package control;
 
 import model.*;
 import java.util.LinkedList;
+import view.*;
 
 public class TablesManager {
   Disk database;
@@ -14,19 +15,40 @@ public class TablesManager {
   
   public TablesManager() {
     this.database = new Disk(8);
-    tps = new PageTable(this.database);
+    tpc = new PageTable(this.database);
     this.transaction = null;
     systemCrash = false;
+    tps = null;
+  }
+  
+  public void refreshGUI() {
+    Mainpage.ImThis.disco.clear();
+    Mainpage.ImThis.TPS.clear();
+    Mainpage.ImThis.TPC.clear();
+    for (int i=0; i < database.getSize(); i++) {
+      Mainpage.ImThis.disco.add(i, database.getPage(i));
+    }
+    if (tps != null) {
+      for (int i=0; i < tps.maxPages(); i++) {
+        Mainpage.ImThis.TPS.add(i, tps.getPage(i));
+      }
+    }
+    for (int i=0; i < tpc.maxPages(); i++) {
+      Mainpage.ImThis.TPC.add(i, tpc.getPage(i));
+    }
+//     if (Mainpage.ImThis != null) {
+//       Mainpage.ImThis.frmShadowPages.update(null);
+//     }
   }
   
   public boolean start(Transaction t) {
     if (systemCrash) {
-      garbageCollector();
+      restore();
     }
     if (transaction != null) {
       return false;
     }
-    tpc = tps.generateCopy();
+    tps = tpc.generateCopy();
     this.transaction = t;
     garbageAbort = new LinkedList<>();
     garbageCommit = new LinkedList<>();
@@ -100,7 +122,7 @@ public class TablesManager {
     boolean state;
     Page p;
     if (this.transaction == null) {
-      return tps.getPage(id);
+      return tpc.getPage(id);
     }
     if (this.transaction != t) {
       return null;
@@ -112,7 +134,21 @@ public class TablesManager {
     if (this.transaction != t) {
       return false;
     }
-    tps = tpc;
+    
+    // A lazy approach to garbage colector
+    Page qwerty;
+    for (int i=0; i < tps.maxPages(); i++) {
+      qwerty = tps.getPage(i);
+      if (qwerty != null)
+        qwerty.setUsed(false);
+    }
+    tps = null;
+    for (int i=0; i < tpc.maxPages(); i++) {
+      qwerty = tpc.getPage(i);
+      if (qwerty != null)
+        qwerty.setUsed(false);
+    }
+    
     for (Page p: garbageCommit) {
       database.addPage(p);
     }
@@ -127,7 +163,8 @@ public class TablesManager {
     for (Page p: garbageAbort) {
       database.addPage(p);
     }
-    tpc = null;
+    tpc = tps;
+    tps = null;
     transaction = null;
     return true;
   }
@@ -140,8 +177,19 @@ public class TablesManager {
     systemCrash = true;
   }
   
-  public void garbageCollector() {
-    // not implemented yet
+  public void restore() {
+    Page p;
+    tpc = tps;
+    try {
+      while (true)
+        database.getFreePage();
+    } catch (Exception e) {}
+    for (int i=0; i < database.getSize(); i++) {
+      p = database.getPage(i);
+      if (!p.isUsed()) {
+        database.addPage(p);
+      }
+    }
     systemCrash = false;
   }
   
@@ -151,13 +199,13 @@ public class TablesManager {
   
   public String toString() {
     String ret = database.toString(); 
-    ret += "\nTPS:\n";
-      ret += tps.toString();
     if (transaction == null) {
     } else {
-      ret += "\nTPC:\n";
-      ret += tpc.toString();
+      ret += "\nTPS:\n";
+      ret += tps.toString();
     }
+    ret += "\nTPC:\n";
+    ret += tpc.toString();
     return ret;
   }
 }

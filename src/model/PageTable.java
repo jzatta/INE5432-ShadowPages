@@ -25,6 +25,10 @@ public class PageTable {
     }
   }
   
+  public int maxPages() {
+    return pagesIndex.length;
+  }
+  
   public PageTable generateCopy() {
     PageTable tps = new PageTable(this);
     return tps;

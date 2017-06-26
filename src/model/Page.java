@@ -4,12 +4,14 @@ public class Page {
   private int data[];
   private final int indexInDB;
   private int indexInTable;
+  private boolean used;
   
   // Tuple per page isnt really necessary
   protected Page(int tuplePerPage, int dbIndex) {
     data = new int[tuplePerPage];
     indexInDB = dbIndex;
     indexInTable = -1;
+    used = false;
   }
   
   // Add in first tuple, useful when have only one tuple per page
@@ -52,5 +54,17 @@ public class Page {
   
   protected void setTableIndex(int i) {
     indexInTable = i;
+  }
+  
+  public boolean isUsed() {
+    return used;
+  }
+  
+  public void setUsed(boolean b) {
+    used = b;
+  }
+  
+  public String toString() {
+    return "Id: " + indexInTable + "  Pagina: " + indexInDB + "  Value: " + data[0];
   }
 }

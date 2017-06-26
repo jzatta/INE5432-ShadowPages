@@ -14,7 +14,7 @@ public class Disk {
     tpl = new FreePageTable(maxPages);
   }
   
-  protected Page getPage(int index) {
+  public Page getPage(int index) {
     return pages[index];
   }
   
