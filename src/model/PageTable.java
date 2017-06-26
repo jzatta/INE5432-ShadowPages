@@ -75,9 +75,14 @@ public class PageTable {
   }
   
   public String toString() {
-    String ret = "Page Table:\n";
+    String ret = "";
+    Page p;
     for (int i = 0; i < pagesIndex.length; i++) {
       ret += i + " --> " + pagesIndex[i];
+      if (pagesIndex[i] >= 0) {
+        p = database.getPage(pagesIndex[i]);
+        ret += " (" + p.selectData(0) + ")";
+      }
       if (i % 4 == 3) {
         ret += "\n";
       } else {

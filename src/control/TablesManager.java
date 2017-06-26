@@ -123,8 +123,13 @@ public class TablesManager {
   
   public String toString() {
     String ret = database.toString(); 
-    ret += "\n";
-    ret += tpc.toString();
+    ret += "\nTPS:\n";
+      ret += tps.toString();
+    if (transaction == null) {
+    } else {
+      ret += "\nTPC:\n";
+      ret += tpc.toString();
+    }
     return ret;
   }
 }
