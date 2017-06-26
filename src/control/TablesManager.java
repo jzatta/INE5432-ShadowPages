@@ -6,18 +6,23 @@ import java.util.LinkedList;
 public class TablesManager {
   Disk database;
   PageTable tps;
-  PageTable tpc;
   Transaction transaction;
+  PageTable tpc;
   LinkedList<Page> garbageAbort;
   LinkedList<Page> garbageCommit;
+  boolean systemCrash;
   
   public TablesManager() {
     this.database = new Disk(8);
     tps = new PageTable(this.database);
     this.transaction = null;
+    systemCrash = false;
   }
   
   public boolean start(Transaction t) {
+    if (systemCrash) {
+      garbageCollector();
+    }
     if (transaction != null) {
       return false;
     }
@@ -49,22 +54,31 @@ public class TablesManager {
   public boolean update(Transaction t, int id, int data) {
     boolean state;
     Page newPage, oldPage;
+    if (id < 0) {
+      insert(t, data);
+    }
     if (this.transaction != t) {
       return false;
     }
-    newPage = database.getFreePage();
-    newPage.updateData(data);
     oldPage = tpc.getPage(id);
-    tpc.copyPage(newPage, oldPage);
-    state = tpc.updatePage(newPage);
-    // If cannot update the tpc put page in tpl
-    if (!state) {
-      database.addPage(newPage);
+    newPage = tpc.getPage(id);
+    if (oldPage == newPage) {
+      newPage = database.getFreePage();
+      PageTable.copyPage(newPage, oldPage);
+      newPage.updateData(data);
+      state = tpc.updatePage(newPage);
+      if (!state) {
+        // If cannot update the tpc put page in tpl
+        database.addPage(newPage);
+      } else {
+        garbageAbort.add(newPage);
+        garbageCommit.add(oldPage);
+      }
+      return state;
     } else {
-      garbageAbort.add(newPage);
-      garbageCommit.add(oldPage);
+      newPage.updateData(data);
+      return true;
     }
-    return state;
   }
   
   public boolean delete(Transaction t, int id) {
@@ -116,6 +130,19 @@ public class TablesManager {
     tpc = null;
     transaction = null;
     return true;
+  }
+  
+  public void crash() {
+    tpc = null;
+    transaction = null;
+    garbageAbort = null;
+    garbageCommit = null;
+    systemCrash = true;
+  }
+  
+  public void garbageCollector() {
+    // not implemented yet
+    systemCrash = false;
   }
   
   public boolean checkRI() {

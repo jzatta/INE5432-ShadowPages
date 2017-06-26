@@ -2,7 +2,7 @@ package model;
 
 public class Page {
   private int data[];
-  private int indexInDB;
+  private final int indexInDB;
   private int indexInTable;
   
   // Tuple per page isnt really necessary

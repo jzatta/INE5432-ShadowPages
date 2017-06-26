@@ -40,7 +40,7 @@ public class PageTable {
     return database.getPage(indexInDisk);
   }
   
-  public void copyPage(Page to, Page from) {
+  public static void copyPage(Page to, Page from) {
     to.copyData(from);
   }
   
