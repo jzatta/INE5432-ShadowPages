@@ -13,8 +13,7 @@ JFLAGS=-d $(BINDIR) -sourcepath $(SRCDIR)
 all: $(OBJECTS)
 
 run: all
-	@cd $(BINDIR)
-	@java $(MAINFILE)
+	@cd $(BINDIR) && java $(MAINFILE)
 
 $(BINDIR):
 	@mkdir $@
