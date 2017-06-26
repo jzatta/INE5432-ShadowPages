@@ -73,4 +73,17 @@ public class PageTable {
     pagesIndex[id] = -1;
     return true;
   }
+  
+  public String toString() {
+    String ret = "Page Table:\n";
+    for (int i = 0; i < pagesIndex.length; i++) {
+      ret += i + " --> " + pagesIndex[i];
+      if (i % 4 == 3) {
+        ret += "\n";
+      } else {
+        ret += "\t";
+      }
+    }
+    return ret;
+  }
 }

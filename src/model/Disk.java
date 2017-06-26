@@ -33,7 +33,7 @@ public class Disk {
   public String toString() {
     String ret = "Disk Content:\n";
     for (Page p: pages) {
-      ret += "DBId: " + p.dbIndex() + "\tTableId: " + p.getTableIndex() + "\tData: " + p.selectData(0) + "\n";
+      ret += "DBId: " + p.dbIndex() + " \tTableId: " + p.getTableIndex() + "\tData: " + p.selectData(0) + "\n";
     }
     return ret;
   }

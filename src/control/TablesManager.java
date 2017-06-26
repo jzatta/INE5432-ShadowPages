@@ -12,7 +12,7 @@ public class TablesManager {
   LinkedList<Page> garbageCommit;
   
   public TablesManager() {
-    this.database = new Disk(16);
+    this.database = new Disk(8);
     tps = new PageTable(this.database);
     this.transaction = null;
   }
@@ -119,5 +119,12 @@ public class TablesManager {
   
   public boolean checkRI() {
     return true;
+  }
+  
+  public String toString() {
+    String ret = database.toString(); 
+    ret += "\n";
+    ret += tpc.toString();
+    return ret;
   }
 }
