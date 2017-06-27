@@ -30,7 +30,7 @@ public class OperationButton implements ActionListener {
     String button = buttonGroup.getSelection().getActionCommand();
     String idT = textId.getText();
     String valueT = textValue.getText();
-    java.awt.Toolkit.getDefaultToolkit().beep();
+//     System.out.println("\007");
     int id, value;
     if (button == "Start") {
       try {

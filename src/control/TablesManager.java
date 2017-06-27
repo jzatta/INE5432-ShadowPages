@@ -26,15 +26,15 @@ public class TablesManager {
     Mainpage.ImThis.TPS.clear();
     Mainpage.ImThis.TPC.clear();
     for (int i=0; i < database.getSize(); i++) {
-      Mainpage.ImThis.disco.add(i, database.getPage(i));
+      Mainpage.ImThis.disco.add(i, database.getPage(i).toString());
     }
     if (tps != null) {
       for (int i=0; i < tps.maxPages(); i++) {
-        Mainpage.ImThis.TPS.add(i, tps.getPage(i));
+        Mainpage.ImThis.TPS.add(i, tps.getPageInfo(i));
       }
     }
     for (int i=0; i < tpc.maxPages(); i++) {
-      Mainpage.ImThis.TPC.add(i, tpc.getPage(i));
+      Mainpage.ImThis.TPC.add(i, tpc.getPageInfo(i));
     }
 //     if (Mainpage.ImThis != null) {
 //       Mainpage.ImThis.frmShadowPages.update(null);

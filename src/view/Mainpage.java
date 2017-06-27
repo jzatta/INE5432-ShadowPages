@@ -27,7 +27,7 @@ public class Mainpage {
   public static Mainpage ImThis;
   private OperationButton btnOP;
   
-  public static final int xRes = 800;
+  public static final int xRes = 1024;
   public static final int yRes = 600;
   
   public static int getPercent(int res, double percent) {
@@ -38,9 +38,9 @@ public class Mainpage {
     return (int)ret;
   }
   
-  public static DefaultListModel<Page> disco = new DefaultListModel<Page>();
-  public static DefaultListModel<Page> TPC = new DefaultListModel<Page>();
-  public static DefaultListModel<Page> TPS = new DefaultListModel<Page>();
+  public static DefaultListModel<String> disco = new DefaultListModel<String>();
+  public static DefaultListModel<String> TPC = new DefaultListModel<String>();
+  public static DefaultListModel<String> TPS = new DefaultListModel<String>();
   /**
    * Create the application.
    */
@@ -68,10 +68,10 @@ public class Mainpage {
     int yListWidth  = getPercent(yRes, 70)-yListStart;
     
     int xLeftColumnStart   = getPercent(xRes, 2);
-    int xLeftColumnWidth   = getPercent(xRes, 32)-xLeftColumnStart;
-    int xCenterColumnStart = getPercent(xRes, 35);
-    int xCenterColumnWidth = getPercent(xRes, 65)-xCenterColumnStart;
-    int xRightColumnStart  = getPercent(xRes, 68);
+    int xLeftColumnWidth   = getPercent(xRes, 28)-xLeftColumnStart;
+    int xCenterColumnStart = getPercent(xRes, 30);
+    int xCenterColumnWidth = getPercent(xRes, 68)-xCenterColumnStart;
+    int xRightColumnStart  = getPercent(xRes, 70);
     int xRightColumnWidth  = getPercent(xRes, 98)-xRightColumnStart;
     
     JLabel lblTpc = new JLabel("TPC");
@@ -83,7 +83,7 @@ public class Mainpage {
     listTpc.setBounds(xLeftColumnStart, yListStart, xLeftColumnWidth, yListWidth);
     frmShadowPages.getContentPane().add(listTpc);
     
-    JLabel lblDisco = new JLabel("Disco");
+    JLabel lblDisco = new JLabel("Disk");
     lblDisco.setFont(new Font("Tahoma", Font.PLAIN, 22));
     lblDisco.setBounds(xCenterColumnStart, yLabelStart, xCenterColumnWidth, yLabelWidth);
     frmShadowPages.getContentPane().add(lblDisco);
@@ -118,7 +118,7 @@ public class Mainpage {
     int yRatioButtonsStart = getPercent(yInputPanelWidth, 2);
     int yRatioButtonsWidth = getPercent(yInputPanelWidth, 15)-yRatioButtonsStart;
     
-    JLabel lblTipo = new JLabel("Tipo:");
+    JLabel lblTipo = new JLabel("Typo:");
     lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
     lblTipo.setBounds(getPercent(xInputPanelWidth, 1), yRatioButtonsStart, getPercent(xInputPanelWidth, 10), yRatioButtonsWidth);
     panel.add(lblTipo);
@@ -198,7 +198,7 @@ public class Mainpage {
     
     yTextStart += yTextWidth;
     
-    JLabel lblValor = new JLabel("Valor");
+    JLabel lblValor = new JLabel("Value");
     lblValor.setFont(new Font("Tahoma", Font.PLAIN, 14));
     lblValor.setBounds(xTextStart, yTextStart, xTextWidth, yTextWidth);
     panel.add(lblValor);
@@ -216,7 +216,7 @@ public class Mainpage {
     int yButtonStart = getPercent(yInputPanelWidth, 2);
     int yButtonWidth = getPercent(yInputPanelWidth, 30)-yButtonStart;
     
-    JButton btnNewButton = new JButton("Inserir Opera\u00E7\u00E3o");
+    JButton btnNewButton = new JButton("Insert Operation");
     btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
     btnNewButton.setBounds(xButtonStart, yButtonStart, xButtonWidth, yButtonWidth);
     panel.add(btnNewButton);
@@ -224,9 +224,9 @@ public class Mainpage {
     
     yButtonStart +=yButtonWidth + 10;
     
-    JButton btnNewButton_1 = new JButton("Clear");
-    btnNewButton_1.setBounds(xButtonStart, yButtonStart, xButtonWidth, yButtonWidth);
-    panel.add(btnNewButton_1);
+//     JButton btnNewButton_1 = new JButton("Clear");
+//     btnNewButton_1.setBounds(xButtonStart, yButtonStart, xButtonWidth, yButtonWidth);
+//     panel.add(btnNewButton_1);
     
 //     JLabel lblNovaOperao = new JLabel("Nova Opera\u00E7\u00E3o");
 //     lblNovaOperao.setFont(new Font("Tahoma", Font.PLAIN, 16));

@@ -95,4 +95,15 @@ public class PageTable {
     }
     return ret;
   }
+  
+  public String getPageInfo(int i) {
+    String ret = "";
+    if (pagesIndex[i] < 0) {
+      return ret;
+    }
+    ret += "Id: " + i;
+    ret += " DiskPage: " + pagesIndex[i];
+    ret += " Value: " + database.getPage(pagesIndex[i]).selectData(0);
+    return ret;
+  }
 }

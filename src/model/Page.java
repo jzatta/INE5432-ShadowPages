@@ -65,6 +65,7 @@ public class Page {
   }
   
   public String toString() {
-    return "Id: " + indexInTable + "  Pagina: " + indexInDB + "  Value: " + data[0];
+    boolean used = indexInTable >= 0;
+    return "Page: " + indexInDB + " Stored value: " + data[0] + " isUsed: " + used;
   }
 }
