@@ -82,7 +82,7 @@ public class TablesManager {
     if (this.transaction != t) {
       return false;
     }
-    oldPage = tpc.getPage(id);
+    oldPage = tps.getPage(id);
     newPage = tpc.getPage(id);
     if (oldPage == newPage) {
       newPage = database.getFreePage();

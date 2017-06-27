@@ -14,7 +14,7 @@ public class Main {
 //       }
 //     };
     gui(args);
-    console(args);
+//     console(args);
   }
   
   public static void console(String args[]) {
@@ -52,7 +52,8 @@ public class Main {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
-          Mainpage window = new Mainpage();
+          tm = new TablesManager();
+          Mainpage window = new Mainpage(tm);
         } catch (Exception e) {
           e.printStackTrace();
         }
